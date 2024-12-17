@@ -1,0 +1,21 @@
+apiVersion: k0sctl.k0sproject.io/v1beta1
+kind: Cluster
+metadata:
+  name: k0s-cluster
+spec:
+  hosts:
+    - role: controller
+      ssh:
+        address: 10.0.1.2 # replace with the controller's IP address
+        user: leviathan
+        keyPath: ~/.ssh/id_rsa
+    - role: worker
+      ssh:
+        address: 10.0.1.3 # replace with the worker's IP address
+        user: leviathan
+        keyPath: ~/.ssh/id_rsa
+    - role: worker
+      ssh:
+        address: 10.0.1.4 # replace with the worker's IP address
+        user: leviathan
+        keyPath: ~/.ssh/id_rsa
