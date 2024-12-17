@@ -18,23 +18,9 @@ if ! virsh pool-info "$POOL_NAME" > /dev/null 2>&1; then
     exit 1
 fi
 
-# Start the pool if it is not already active
-echo "Ensuring the storage pool '$POOL_NAME' is active..."
-if ! virsh pool-info "$POOL_NAME" | grep -q "Active:.*yes"; then
-    echo "Starting the storage pool '$POOL_NAME'..."
-    if virsh pool-start "$POOL_NAME"; then
-        echo "Storage pool '$POOL_NAME' started successfully."
-    else
-        echo "Error: Failed to start storage pool '$POOL_NAME'."
-        exit 1
-    fi
-else
-    echo "Storage pool '$POOL_NAME' is already active."
-fi
-
 # List and delete all volumes in the pool
 echo "Fetching the list of volumes in the storage pool '$POOL_NAME'..."
-VOLUMES=$(virsh vol-list "$POOL_NAME" --name)
+VOLUMES=$(virsh vol-list "$POOL_NAME" | grep -v "Volatile" | awk '{print $1}' | tail -n +3)
 
 if [ -z "$VOLUMES" ]; then
     echo "No volumes found in the storage pool '$POOL_NAME'. Nothing to delete."
@@ -52,7 +38,7 @@ fi
 
 # Verify deletion
 echo "Verifying that all volumes have been deleted..."
-if [ -z "$(virsh vol-list "$POOL_NAME" --name)" ]; then
+if [ -z "$(virsh vol-list "$POOL_NAME" | grep -v "Volatile" | awk '{print $1}' | tail -n +3)" ]; then
     echo "All volumes in the storage pool '$POOL_NAME' have been deleted successfully."
 else
     echo "Warning: Some volumes could not be deleted. Please check manually."
