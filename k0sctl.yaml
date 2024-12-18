@@ -8,14 +8,19 @@ spec:
       ssh:
         address: 10.0.1.2 # replace with the controller's IP address
         user: leviathan
-        keyPath: ~/.ssh/id_rsa
+        keyPath: ~/.ssh/id_rsa_no_passphrase
     - role: worker
       ssh:
         address: 10.0.1.3 # replace with the worker's IP address
         user: leviathan
-        keyPath: ~/.ssh/id_rsa
+        keyPath: ~/.ssh/id_rsa_no_passphrase
     - role: worker
       ssh:
         address: 10.0.1.4 # replace with the worker's IP address
         user: leviathan
-        keyPath: ~/.ssh/id_rsa
+        keyPath: ~/.ssh/id_rsa_no_passphrase
+    - role: worker
+      ssh:
+        address: 10.0.1.5 # replace with the worker's IP address
+        user: leviathan
+        keyPath: ~/.ssh/id_rsa_no_passphrase

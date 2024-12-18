@@ -6,7 +6,7 @@ variable "control_plane_nodes" {
 
 variable "worker_nodes" {
   type = number
-  default = 2
+  default = 3
 }
 
 variable "cp_prefix" {
@@ -68,14 +68,17 @@ variable "privateuser" {
   default = "leviathan"
 }
 
+# Passphrase protected private keys break "terraform apply" since there is no option
+# for entering the passphrase during this procedure
+
 variable "privatekey" {
   type = string
-  default = "~/.ssh/id_rsa"
+  default = "~/.ssh/id_rsa_no_passphrase"
 }
 
 variable "pubkey" {
   type = string
-  default = "~/.ssh/id_rsa.pub"
+  default = "~/.ssh/id_rsa_no_passphrase.pub"
 }
 
 variable "timezone" {

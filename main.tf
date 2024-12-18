@@ -38,7 +38,7 @@ module "controlplane" {
 
 module "worker" {
   source  = "MonolithProjects/vm/libvirt"
-  version = "1.10.0"
+  version = "1.12.0"
 
   vm_hostname_prefix = var.worker_prefix
   vm_count    = var.worker_nodes
@@ -47,7 +47,7 @@ module "worker" {
   pool        = var.worker_diskpool
   system_volume = var.worker_disk
   dhcp        = false
-  ip_address = [ "10.0.1.3", "10.0.1.4" ]
+  ip_address = [ "10.0.1.3", "10.0.1.4", "10.0.1.5" ]
   ip_gateway = "10.0.1.1"
   ip_nameserver = "10.0.1.1"
   ssh_admin   = var.privateuser
