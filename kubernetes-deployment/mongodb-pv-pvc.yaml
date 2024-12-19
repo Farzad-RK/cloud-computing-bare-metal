@@ -1,0 +1,18 @@
+# Create a Longhorn-backed Persistent Volume (PV) and Persistent Volume Claim (PVC) with 3 replicas
+# This storage will be formatted and mounted for MongoDB to use.
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-pvc
+  namespace: default
+  labels:
+    app: mongodb
+spec:
+  storageClassName: longhorn  # Use the Longhorn storage class
+  accessModes:
+    - ReadWriteOnce  # MongoDB requires single-writer access
+  resources:
+    requests:
+      storage: 5Gi  # Adjust size as necessary for your database
