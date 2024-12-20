@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todolist-backend-deployment
+  labels:
+    app: todolist
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todolist
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: todolist
+        tier: backend
+    spec:
+      containers:
+        - name: todolist-backend
+          image: leviathann13/todolist-service
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGODB_CLUSTER_IP
+              value: mongodb-service.default.svc.cluster.local
