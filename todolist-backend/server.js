@@ -1,10 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors"); // Import CORS
 
 const app = express();
 const port = 3000;
 
 // Middleware
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
 // MongoDB Connection
