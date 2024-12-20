@@ -9,7 +9,7 @@ app.use(express.json());
 
 // MongoDB Connection
 mongoose.connect(
-    "mongodb://admin:password@<MONGODB_CLUSTER_IP>:27017/todolist?authSource=admin",
+    "mongodb://admin:password@${process.env.MONGODB_CLUSTER_IP}:27017/todolist?authSource=admin",
     { useNewUrlParser: true, useUnifiedTopology: true }
 );
 const db = mongoose.connection;
