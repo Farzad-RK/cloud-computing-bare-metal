@@ -5,9 +5,16 @@ import axios from "axios";
 
 const API_BASE_URL = process.env.BACKEND_URL || 'http://localhost:8080'; // Fallback for local dev
 
+// Define the type for a todo item
+interface Todo {
+    _id: string;
+    title: string;
+    completed: boolean;
+}
+
 export default function Home() {
-    const [todos, setTodos] = useState([]);
-    const [newTodo, setNewTodo] = useState("");
+    const [todos, setTodos] = useState<Todo[]>([]); // Explicitly set the type for todos
+    const [newTodo, setNewTodo] = useState<string>("");
 
     useEffect(() => {
         fetchTodos();
@@ -15,7 +22,7 @@ export default function Home() {
 
     const fetchTodos = async () => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/todos`);
+            const response = await axios.get<Todo[]>(`${API_BASE_URL}/todos`);
             setTodos(response.data);
         } catch (error) {
             console.error("Error fetching todos:", error);
@@ -25,20 +32,20 @@ export default function Home() {
     const addTodo = async () => {
         if (!newTodo.trim()) return;
         try {
-            const response = await axios.post(`${API_BASE_URL}/todos`, {
+            const response = await axios.post<Todo>(`${API_BASE_URL}/todos`, {
                 title: newTodo,
                 completed: false,
             });
-            setTodos([...todos, response.data]);
+            setTodos([...todos, response.data]); // TypeScript now knows response.data is of type Todo
             setNewTodo("");
         } catch (error) {
             console.error("Error adding todo:", error);
         }
     };
 
-    const toggleTodo = async (id, completed) => {
+    const toggleTodo = async (id: string, completed: boolean) => {
         try {
-            const response = await axios.put(`${API_BASE_URL}/todos/${id}`, {
+            const response = await axios.put<Todo>(`${API_BASE_URL}/todos/${id}`, {
                 completed: !completed,
             });
             setTodos(todos.map((todo) => (todo._id === id ? response.data : todo)));
@@ -47,7 +54,7 @@ export default function Home() {
         }
     };
 
-    const deleteTodo = async (id) => {
+    const deleteTodo = async (id: string) => {
         try {
             await axios.delete(`${API_BASE_URL}/todos/${id}`);
             setTodos(todos.filter((todo) => todo._id !== id));
