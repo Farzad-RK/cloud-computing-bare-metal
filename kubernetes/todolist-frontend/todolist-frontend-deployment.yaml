@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todolist-frontend
+  labels:
+    app: todolist-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todolist-frontend
+  template:
+    metadata:
+      labels:
+        app: todolist-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: leviathann13/todolist-frontend
+          ports:
+            - containerPort: 3000
+          env:
+            - name: BACKEND_URL
+              value: "http://todolist-backend-service:3000" # Connect via backend service
