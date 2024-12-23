@@ -22,7 +22,7 @@ variable "worker_prefix" {
 #Control plane node specs
 variable "cp_cpu" {
   type = number
-  default = 1
+  default = 2
 }
 
 variable "cp_disk" {
@@ -32,7 +32,7 @@ variable "cp_disk" {
 
 variable "cp_memory" {
   type = number
-  default = 1024
+  default = 2048
 }
 
 variable "cp_diskpool" {
