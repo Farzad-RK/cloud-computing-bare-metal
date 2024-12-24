@@ -38,5 +38,5 @@ rook/
 #
 .terraform/
 .terraform.lock.hcl.backup
-
+.terraform.lock.hcl
 kubeconfig
