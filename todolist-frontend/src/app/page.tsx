@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_BASE_URL = process.env.BACKEND_URL || 'http://localhost:8080'; // Fallback for local dev
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://todolist.local/api'; // Fallback for local dev
 
 // Define the type for a todo item
 interface Todo {
